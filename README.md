@@ -18,3 +18,8 @@ Project built based on learnings from the course [ud836](https://classroom.udaci
 ## References
 1. Starting point to learning about anything about Android - [Android Developer site](https://developer.android.com/)
 1. Generating colors for your theme - [Material Palette](https://www.materialpalette.com/)
+
+
+## Apps making a difference
+1. App which helps in testing human vision [Website](https://www.peekvision.org/)
+1. App that informs about emergencies in your community (maybe only US) [Website](pulsepoint.org/download)
