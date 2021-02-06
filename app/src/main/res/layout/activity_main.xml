@@ -15,27 +15,23 @@
             android:id="@+id/name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="What's your name ?"
+            android:hint="@string/name_hint"
             android:inputType="textCapWords" />
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
             android:layout_marginTop="16dp"
-            android:text="toppings"
-            android:textAllCaps="true"
-            android:textSize="16sp" />
+            style="@style/HeaderTextStyle"
+            android:text="@string/toppings" />
 
         <CheckBox
             android:id="@+id/checkbox_whipped_cream"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="0dp"
             android:layout_marginStart="16dp"
+            android:layout_marginTop="0dp"
             android:paddingLeft="24dp"
-
-            android:text="Whipped cream"
+            android:text="@string/whipped_cream"
             android:textSize="16sp" />
 
         <CheckBox
@@ -45,17 +41,14 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="0dp"
             android:paddingLeft="24dp"
-            android:text="Chocolate"
+            android:text="@string/chocolate"
             android:textSize="16sp" />
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
             android:layout_marginTop="16dp"
-            android:text="quantity"
-            android:textAllCaps="true"
-            android:textSize="16sp" />
+            style="@style/HeaderTextStyle"
+            android:text="@string/quantity" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -92,25 +85,6 @@
 
         </LinearLayout>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="16dp"
-            android:text="Order Summary"
-            android:textAllCaps="true"
-            android:textSize="16sp" />
-
-        <TextView
-            android:id="@+id/order_summary_text_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="16dp"
-            android:text="$0"
-            android:textColor="@color/black"
-            android:textSize="16sp" />
-
         <Button
             android:id="@+id/order_button_id"
             android:layout_width="wrap_content"
@@ -118,6 +92,6 @@
             android:layout_marginLeft="16dp"
             android:layout_marginTop="16dp"
             android:onClick="submitOrder"
-            android:text="order" />
+            android:text="@string/order" />
     </LinearLayout>
 </ScrollView>

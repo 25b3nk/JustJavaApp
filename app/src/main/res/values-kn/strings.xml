@@ -1,0 +1,15 @@
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="app_name">Just Java</string>
+    <string name="name_hint">ಹೆಸರು</string>
+    <string name="toppings">ಟೊಪ್ಪಿನ್ಗ್ಸ್</string>
+    <string name="whipped_cream">ಹಾಲಿನ ಕೆನೆ</string>
+    <string name="chocolate">ಚಾಕೊಲೇಟ್</string>
+    <string name="quantity">ಪ್ರಮಾಣ</string>
+    <string name="order">ಆದೇಶ</string>
+    <string name="thank_you">ಧನ್ಯವಾದಗಳು!</string>
+    <string name="add">ಸೇರಿಸಿ</string>
+    <string name="total">ಒಟ್ಟು</string>
+    <string name="order_summary_name">ಹೆಸರು: <xliff:g id="name" example="Amy">%s</xliff:g></string>
+    <string name="boolean_true">ಹೌದು</string>
+    <string name="boolean_false">ಇಲ್ಲ</string>
+</resources>

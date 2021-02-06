@@ -1,3 +1,19 @@
-<resources>
-    <string name="app_name">Just Java</string>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="app_name" translatable="false">"Just Java"</string>
+    <!--
+      Name for the order summary. It will be shown in the format of "Name: Amy" where Amy is the
+      user's name. [CHAR LIMIT=NONE]
+    -->
+    <string name="order_summary_name">Name: <xliff:g id="name" example="Amy">%s</xliff:g></string>
+    <string name="name_hint">Name</string>
+    <string name="toppings">toppings</string>
+    <string name="add">Add</string>
+    <string name="whipped_cream">Whipped cream</string>
+    <string name="chocolate">Chocolate</string>
+    <string name="quantity">Quantity</string>
+    <string name="order">Order</string>
+    <string name="thank_you">Thank you!</string>
+    <string name="total">Total</string>
+    <string name="boolean_true">True</string>
+    <string name="boolean_false">False</string>
 </resources>

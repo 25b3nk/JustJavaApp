@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        display(quantity);
+        displayQuantity(quantity);
     }
 
     /**
@@ -40,13 +40,23 @@ public class MainActivity extends AppCompatActivity {
         String name = ((EditText) findViewById(R.id.name)).getText().toString();
         boolean hasWhippedCream = ((CheckBox) findViewById(R.id.checkbox_whipped_cream)).isChecked();
         boolean hasChocolate = ((CheckBox) findViewById(R.id.checkbox_chocolate)).isChecked();
-        String priceMessage = createOrderSummary(name, hasWhippedCream, hasChocolate);
-        displayMessage(priceMessage);
+
+        Intent intent = new Intent(Intent.ACTION_SENDTO);
+        intent.setData(Uri.parse("mailto:"));
+        intent.putExtra(Intent.EXTRA_SUBJECT, "JustJava Order for " + name);
+        String orderSummary = createOrderSummary(name, hasWhippedCream, hasChocolate);
+        intent.putExtra(Intent.EXTRA_TEXT, orderSummary);
+
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivity(intent);
+        }
     }
 
     /**
      * This method is called to calculate the total price.
      *
+     * @param hasWhippedCream if whipped cream is chosen
+     * @param hasChocolate    if chocolate is chosen
      */
     private int calculatePrice(boolean hasWhippedCream, boolean hasChocolate) {
         int basePrice = pricePerCoffee;
@@ -61,16 +71,30 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * This method creates the order summary to be displayed
+     *
+     * @param name            of the person ordering
+     * @param hasWhippedCream if whipped cream is chosen
+     * @param hasChocolate    if chocolate is chosen
+     * @return Summary of the order in text
      */
     private String createOrderSummary(String name, boolean hasWhippedCream, boolean hasChocolate) {
         int total = calculatePrice(hasWhippedCream, hasChocolate);
-        String orderSummary = "Name: " + name;
-        orderSummary += "\nAdd whipped cream? " + hasWhippedCream;
-        orderSummary += "\nAdd chocolate? " + hasChocolate;
-        orderSummary += "\nQuantity: " + quantity;
-        orderSummary += "\nTotal: " + NumberFormat.getCurrencyInstance().format(total);
-        orderSummary += "\nThank you!";
+        String orderSummary = getString(R.string.order_summary_name, name);
+        orderSummary += "\n" + getString(R.string.add) + " " + getString(R.string.whipped_cream) + "? " + getBooleanString(hasWhippedCream);
+        orderSummary += "\n" + getString(R.string.add) + " " + getString(R.string.chocolate) + "? " + getBooleanString(hasChocolate);
+        orderSummary += "\n"+ getString(R.string.quantity) + ": " + quantity;
+        orderSummary += "\n"+ getString(R.string.total) + ": $" + total;
+        orderSummary += "\n" + getString(R.string.thank_you);
         return orderSummary;
+    }
+
+    /**
+     *
+     * @param value of the boolean to be converted to string
+     * @return Text format of the boolean in the language based on locale setting
+     */
+    private String getBooleanString(boolean value) {
+        return (value ? getString(R.string.boolean_true): getString(R.string.boolean_false));
     }
 
     /**
@@ -85,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
         else {
             quantity++;
         }
-        display(quantity);
+        displayQuantity(quantity);
     }
 
     /**
@@ -99,22 +123,14 @@ public class MainActivity extends AppCompatActivity {
         else {
             quantity--;
         }
-        display(quantity);
+        displayQuantity(quantity);
     }
 
     /**
      * This method displays the given quantity value on the screen.
      */
-    private void display(int number) {
+    private void displayQuantity(int number) {
         TextView quantityTextView = (TextView) findViewById(R.id.quantity_text_view);
         quantityTextView.setText("" + number);
-    }
-
-    /**
-     * This method displays the given text on the screen.
-     */
-    private void displayMessage(String message) {
-        TextView orderSummaryTextView = (TextView) findViewById(R.id.order_summary_text_view);
-        orderSummaryTextView.setText(message);
     }
 }
