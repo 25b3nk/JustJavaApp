@@ -1,18 +1,19 @@
-/**
- * IMPORTANT: Make sure you are using the correct package name.
- * This example uses the package name:
- * package com.example.android.justjava
- * If you get an error when copying this code into Android studio, update it to match teh package name found
- * in the project's AndroidManifest.xml file.
- **/
-
 package com.example.justjava;
 
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.text.Editable;
+import android.util.Log;
 import android.view.View;
+import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import java.text.NumberFormat;
 
 /**
@@ -20,29 +21,70 @@ import java.text.NumberFormat;
  */
 public class MainActivity extends AppCompatActivity {
 
-    private int quantity = 0;
-    private int price = 5;
+    private int quantity = 2;
+    private int pricePerCoffee = 5;
+    private int priceForWhippedCream = 1;
+    private int priceForChocolate = 2;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        display(quantity);
     }
 
     /**
      * This method is called when the order button is clicked.
      */
     public void submitOrder(View view) {
-        int total = quantity * price;
-        String priceMessage = "Total: " + NumberFormat.getCurrencyInstance().format(total);
-        priceMessage = priceMessage + "\nThank you!";
+        String name = ((EditText) findViewById(R.id.name)).getText().toString();
+        boolean hasWhippedCream = ((CheckBox) findViewById(R.id.checkbox_whipped_cream)).isChecked();
+        boolean hasChocolate = ((CheckBox) findViewById(R.id.checkbox_chocolate)).isChecked();
+        String priceMessage = createOrderSummary(name, hasWhippedCream, hasChocolate);
         displayMessage(priceMessage);
+    }
+
+    /**
+     * This method is called to calculate the total price.
+     *
+     */
+    private int calculatePrice(boolean hasWhippedCream, boolean hasChocolate) {
+        int basePrice = pricePerCoffee;
+        if (hasWhippedCream) {
+            basePrice += priceForWhippedCream;
+        }
+        if (hasChocolate) {
+            basePrice += priceForChocolate;
+        }
+        return (basePrice * quantity);
+    }
+
+    /**
+     * This method creates the order summary to be displayed
+     */
+    private String createOrderSummary(String name, boolean hasWhippedCream, boolean hasChocolate) {
+        int total = calculatePrice(hasWhippedCream, hasChocolate);
+        String orderSummary = "Name: " + name;
+        orderSummary += "\nAdd whipped cream? " + hasWhippedCream;
+        orderSummary += "\nAdd chocolate? " + hasChocolate;
+        orderSummary += "\nQuantity: " + quantity;
+        orderSummary += "\nTotal: " + NumberFormat.getCurrencyInstance().format(total);
+        orderSummary += "\nThank you!";
+        return orderSummary;
     }
 
     /**
      * This method is called when the plus button is clicked.
      */
     public void incrementQuantity(View view) {
-        quantity++;
+        Toast toast = Toast.makeText(this, "Cannot set quantity above 100", Toast.LENGTH_SHORT);
+        if (quantity >= 100) {
+            quantity = 100;
+            toast.show();
+        }
+        else {
+            quantity++;
+        }
         display(quantity);
     }
 
@@ -50,9 +92,12 @@ public class MainActivity extends AppCompatActivity {
      * This method is called when the minus button is clicked.
      */
     public void decrementQuantity(View view) {
-        quantity--;
-        if (quantity < 0) {
-            quantity = 0;
+        Toast toast = Toast.makeText(this, "Cannot set quantity below 1", Toast.LENGTH_SHORT);
+        if (quantity <= 1) {
+            toast.show();
+        }
+        else {
+            quantity--;
         }
         display(quantity);
     }
@@ -66,18 +111,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * This method displays the given price on the screen.
-     */
-    private void displayPrice(int number) {
-        TextView priceTextView = (TextView) findViewById(R.id.price_text_view);
-        priceTextView.setText(NumberFormat.getCurrencyInstance().format(number));
-    }
-
-    /**
      * This method displays the given text on the screen.
      */
     private void displayMessage(String message) {
-        TextView priceTextView = (TextView) findViewById(R.id.price_text_view);
-        priceTextView.setText(message);
+        TextView orderSummaryTextView = (TextView) findViewById(R.id.order_summary_text_view);
+        orderSummaryTextView.setText(message);
     }
 }
